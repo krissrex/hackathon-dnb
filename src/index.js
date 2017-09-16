@@ -2,14 +2,35 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import Cors from 'kcors';
 import Logger from 'koa-logger';
-import {askFAQ} from './faq';
-import request from 'request';
-import rp from 'request-promise';
-import Transfer from './transfer';
-
+import { askFAQ } from './faq';
+import { balance } from './balance';
 
 const app = new Koa();
+const router = new Router();
 app.use(Logger());
+
+app.use(Cors());
+
+router.get('/balance', balance);
+
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+app.listen(3000);
+
+/* examples
+
+promise-based fetch
+const yo = rp(options)
+  .then(function (data) {
+      console.log(data);
+  })
+  .catch(function (err) {
+      console.log(err);
+  });
+
+*/
+
 /*
 EXAMPLE QUESTIONS AND ANSWERS
 console.log(' \n QUESTION: Which DNB services can I use at the internet bank?');
@@ -29,29 +50,13 @@ console.log('\n\n QUESTION: internet bank');
 console.log(askFAQ('\n internet bank'));
 */
 
-const getCustomerOptions = {
-  uri: 'https://dnbapistore.com/hackathon/customers/1.0/customer/12039296822',
-  headers: {
-    'Authorization': 'Bearer 5cdc9b46-b248-3cf3-ba15-aba91ce75f46',
-    'Accept': 'application/json',
-  },
-  json: true, // Automatically parses the JSON string in the response
-};
+/*const Koa = require('koa');
+const app = new Koa();
+
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
 
 app.listen(3000);
-
-
-
-
-/* examples
-
-promise-based fetch
-const yo = rp(options)
-  .then(function (data) {
-      console.log(data);
-  })
-  .catch(function (err) {
-      console.log(err);
-  });
 
 */
