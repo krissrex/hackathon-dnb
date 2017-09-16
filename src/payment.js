@@ -35,7 +35,7 @@ const message = (data) => {
 
 const findReceiver = async (name) => {
   const lowercase = name.toLowerCase();
-  if (contacts.indexOf(lowercase) > -1) {
+  if (Object.keys(contacts).indexOf(lowercase) > -1) {
     return contacts[lowercase];
   }
   return false;
