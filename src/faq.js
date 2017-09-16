@@ -1,25 +1,7 @@
+import Globals from './globals';
 
 // Takes a string
-const faq = [
-  {
-    id: 1,
-    corealation: 0,
-    question: 'Which DNB services can I use at the internet bank?',
-    answer: 'By using the internet bank, you will be able to:​ Manage the account and view other information​; Perform transfers; view the current transactions and conclude new ones; submit applications and file requests; log in to other systems',
-  },
-  {
-    id: 2,
-    corealation: 0,
-    question: 'What is a login code and where can I get it?',
-    answer: 'A login code is an alphanumerical code assigned by DNB and used to recognize an internet bank user.  You can find the login code in the Annex to the Internet bank agreement (at the top of the Table, next to the name, last name, personal identity code).',
-  },
-  {
-    id: 3,
-    corealation: 0,
-    question: 'What is a PIN code and where can I find it?',
-    answer: 'When you signed the Internet bank agreement you received a plastic PIN code card with numbered codes. You will need the PIN code card every time you log in to the internet bank. The system will request you to enter a specific code from the card. That is one more method to ensure the security of your funds.',
-  },
-];
+let faq = Globals.faqList;
 const separators = [' ', '\\+', '-', '\\(', '\\)', '\\*', '/', ':', '\\?'];
 
 const getAnswer = (relations) => {
@@ -58,5 +40,5 @@ const askFAQ = (inputString) => {
   return getAnswer(relations);
 };
 
-export {askFAQ};
+export { askFAQ };
 
