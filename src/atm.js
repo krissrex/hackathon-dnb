@@ -3,6 +3,7 @@ import rp from 'request-promise';
 /** @return {Promise<string>} */
 const convertPositionToZip = (lat, long) => {
   return new Promise((resolve, reject) => {
+    // TODO use some lat-long-2-zip api
     return resolve('0258');
   });
 };
@@ -18,7 +19,7 @@ const convertPositionToZip = (lat, long) => {
  */
 const findAtmsFromZip = (zipCode) => {
   return new Promise((resolve, reject) => {
-
+    // TODO query DNB API
     return resolve([{ lat: 10, long: 10 }]);
   });
 };
@@ -26,6 +27,7 @@ const findAtmsFromZip = (zipCode) => {
 /** @return {Promise<Position>} */
 const findClosestAtm = (lat, long, atms) => {
   return new Promise((resolve, reject) => {
+    // TODO some simple distance algorithm
     return resolve(atms[0]);
   });
 };
