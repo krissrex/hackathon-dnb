@@ -14,13 +14,13 @@ const baseTransactionURL = 'accounts/1.0/account?';
 
 //Payments
 const basePaymentURL = 'http://dnbapistore.com/hackathon/payments/1.0/';
-const putPaymentURL = 'payment/';
+const putPaymentURL = 'payment';
 
 const authorizationToken = 'Bearer 5cdc9b46-b248-3cf3-ba15-aba91ce75f46';
 
-
+const dass = 'https://dnbapistore.com/hackathon/payments/1.0/payment';
 const contacts = {
-  lars: 123123,
+  lars: 12084941549,
   morten: 321123,
 };
 
@@ -74,14 +74,34 @@ const getTransactionsFromAccount = (data) => {
   };
 };
 
-const putPayment = {
-  uri: baseURL + basePaymentURL + putPaymentURL,
-  method: 'PUT',
-  headers: {
-    'Authorization': authorizationToken,
-    'Accept': 'application/json',
-  },
-  json: true,
+const putPayment = (data) => {
+  return {
+    uri: dass,
+    method: 'PUT',
+    headers: {
+      'Authorization': authorizationToken,
+      'Accept': 'application/json',
+    },
+    json: true,
+    body: data,
+  };
+};
+
+const putPayment1 = (data) => {
+  return { uri: dass,
+    method: 'PUT',
+    headers: {
+      'Authorization': authorizationToken,
+      'Accept': 'application/json',
+    },
+    json: true,
+    body: {
+      debitAccountNumber: 12084059280,
+      creditAccountNumber: 12084941549,
+      paymentDate: '2017-9-17',
+      amount: 1000,
+      message: '1000 kr sendt fra 12084059280 til 12084941549' },
+  };
 };
 
 

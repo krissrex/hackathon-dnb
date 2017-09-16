@@ -4,10 +4,11 @@ import Cors from 'kcors';
 import Logger from 'koa-logger';
 import request from 'request';
 import rp from 'request-promise';
+import koaBody from 'koa-body';
 import { getFAQ } from './faqScraper';
 import { askFAQ } from './faq';
 import Globals from './globals';
-import { balance, transactions } from './accounts';
+import { balance, transactions, accounts } from './accounts';
 import { payment } from './payment';
 import { nearestATM } from './atm';
 
@@ -18,9 +19,12 @@ app.use(Logger());
 
 app.use(Cors());
 
+app.use(koaBody());
+
 router.post('/payment', payment);
 
 router.get('/balance', balance);
+router.get('/accounts', accounts);
 
 router.get('/atm', nearestATM);
 

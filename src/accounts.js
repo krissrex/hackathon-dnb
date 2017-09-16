@@ -33,7 +33,9 @@ const balance = async (ctx) => {
 };
 
 const accounts = async (ctx) => {
-  ctx.body = await fetch(getCustomerAccounts(demoCustomer));
+  const place = await fetch(getCustomerAccounts(demoCustomer));
+  console.log(place);
+  ctx.body = place;
 };
 
 const transactions = async (ctx) => {
@@ -50,7 +52,7 @@ const transactions = async (ctx) => {
   ctx.body = transactionsInInterval;
 };
 
-const lastWeek = async (ctx) => {
+/*const lastWeek = async (ctx) => {
   const customer = await fetch(getCustomerAccounts(demoCustomer));
   const account = current(customer.accounts);
   console.log(customer);
@@ -62,6 +64,6 @@ const lastWeek = async (ctx) => {
   };
   const transactionsInInterval = await fetch(getTransactionsFromAccount(query));
   ctx.body = transactionsInInterval;
-};
+};*/
 
-export { balance, fetch, accounts, transactions };
+export { balance, fetch, accounts, transactions, current };
