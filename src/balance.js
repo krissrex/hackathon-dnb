@@ -1,12 +1,12 @@
 import request from 'request';
 import rp from 'request-promise';
 
-import { getAccount, getCustomerAccounts } from './options';
+import { getCustomerAccounts, demoCustomer } from './options';
 
 
-const fetchBalance = async () => {
+const fetchAccounts = async (options) => {
   return new Promise((resolve, reject) => {
-    rp(getCustomerAccounts)
+    rp(options)
       .then((data) => {
         resolve(data);
       })
@@ -18,9 +18,9 @@ const fetchBalance = async () => {
 
 const balance = async (ctx) => {
   console.log('asdz');
-  const customer = await fetchBalance();
-  ctx.body = customer.accounts[0];
+  const customer = await fetchAccounts(getCustomerAccounts(demoCustomer));
+  ctx.body = customer.accounts[0].availableBalance;
 };
 
 
-export { balance };
+export { balance, fetchAccounts };
