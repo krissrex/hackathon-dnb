@@ -8,10 +8,34 @@ import request from 'request';
 import rp from 'request-promise';
 import Transfer from './transfer';
 import Globals from './globals';
-
+import { balance } from './balance';
 
 const app = new Koa();
+const router = new Router();
 app.use(Logger());
+
+app.use(Cors());
+
+router.get('/balance', balance);
+
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+app.listen(3000);
+
+/* examples
+
+promise-based fetch
+const yo = rp(options)
+  .then(function (data) {
+      console.log(data);
+  })
+  .catch(function (err) {
+      console.log(err);
+  });
+
+*/
+
 /*
 EXAMPLE QUESTIONS AND ANSWERS
 console.log(' \n QUESTION: Which DNB services can I use at the internet bank?');
@@ -31,14 +55,14 @@ console.log('\n\n QUESTION: internet bank');
 console.log(askFAQ('\n internet bank'));
 */
 
-
 getFAQ();
 
+/*
 setTimeout(() => {
   console.log(' \n QUESTION: What shall I do if I have forgotten my password?');
   console.log(askFAQ('\n What shall I do if I have forgotten my password?'));
 }, 5000);
-
+*/
 const options = {
   uri: 'https://dnbapistore.com/hackathon/customers/1.0/customer/12039296822',
   headers: {
@@ -47,13 +71,14 @@ const options = {
   },
   json: true, // Automatically parses the JSON string in the response
 };
+/*const Koa = require('koa');
+const app = new Koa();
+>>>>>>> 70b6eb2ad072b287f03bdc729b2519a8d7356de9
 
-const yo = rp(options)
-  .then(function (data) {
-      console.log(data);
-  })
-  .catch(function (err) {
-      console.log(err);
-  });
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
 
 app.listen(3000);
+
+*/
