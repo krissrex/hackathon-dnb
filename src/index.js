@@ -11,22 +11,24 @@ import Transfer from './transfer';
 const app = new Koa();
 app.use(Logger());
 /*
-console.log(' \n Which DNB services can I use at the internet bank?');
+EXAMPLE QUESTIONS AND ANSWERS
+console.log(' \n QUESTION: Which DNB services can I use at the internet bank?');
 
 console.log(askFAQ('\n Which DNB services can I use at the internet bank?'));
 
-console.log('\n\n What is a PIN code and where can I find it?');
+console.log('\n\n QUESTION: What is a PIN code and where can I find it?');
 
 console.log(askFAQ('\n What is a PIN code and where can I find it?'));
 
-console.log('\n\n pin code');
+console.log('\n\n QUESTION: pin code');
 
 console.log(askFAQ('\n pin code'));
 
-console.log('\n\n internet bank');
+console.log('\n\n QUESTION: internet bank');
 
 console.log(askFAQ('\n internet bank'));
 */
+
 const options = {
   uri: 'https://dnbapistore.com/hackathon/customers/1.0/customer/12039296822',
   headers: {
