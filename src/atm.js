@@ -1,3 +1,5 @@
+import rp from 'request-promise';
+
 /** @return {Promise<string>} */
 const convertPositionToZip = (lat, long) => {
   return new Promise((resolve, reject) => {
@@ -28,12 +30,12 @@ const findClosestAtm = (lat, long, atms) => {
   });
 };
 
-const nearestATM = (ctx) => {
+const nearestATM = async (ctx) => {
   const long = parseInt(ctx.query.longitude, 10);
   const lat = parseInt(ctx.query.latitude, 10);
   console.log('Lat/long:', lat, long);
 
-  convertPositionToZip(lat, long)
+  return convertPositionToZip(lat, long)
     .then(findAtmsFromZip)
     .then(atms => findClosestAtm(lat, long, atms))
     .then((atm) => {
@@ -41,6 +43,7 @@ const nearestATM = (ctx) => {
         longitude: atm.lat,
         latitude: atm.long,
       };
+      return Promise.resolve();
     })
     .catch((err) => {
       ctx.throw(500, 'Failed to find atm', { lat, long, err });      
