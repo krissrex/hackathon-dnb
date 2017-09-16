@@ -2,19 +2,23 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import Cors from 'kcors';
 import Logger from 'koa-logger';
-import {getFAQ} from './faqScraper';
-import {askFAQ} from './faq';
 import request from 'request';
 import rp from 'request-promise';
+import {getFAQ} from './faqScraper';
+import {askFAQ} from './faq';
 import Transfer from './transfer';
 import Globals from './globals';
 import { balance } from './balance';
+import { payment } from './payment';
+
 
 const app = new Koa();
 const router = new Router();
 app.use(Logger());
 
 app.use(Cors());
+
+router.put('/payment', payment);
 
 router.get('/balance', balance);
 
