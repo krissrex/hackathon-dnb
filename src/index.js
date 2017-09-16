@@ -2,6 +2,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import Cors from 'kcors';
 import Logger from 'koa-logger';
+import koaBody from 'koa-body';
 import request from 'request';
 import rp from 'request-promise';
 import { getFAQ } from './faqScraper';
@@ -15,15 +16,12 @@ import { nearestATM } from './atm';
 const app = new Koa();
 const router = new Router();
 app.use(Logger());
-
 app.use(Cors());
+app.use(koaBody());
 
 router.post('/payment', payment);
-
 router.get('/balance', balance);
-
 router.get('/atm', nearestATM);
-
 router.get('/transactions', transactions);
 
 app.use(router.routes());
