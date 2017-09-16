@@ -1,10 +1,10 @@
 import request from 'request';
 import rp from 'request-promise';
 
-import { getCustomerAccounts, demoCustomer } from './options';
+import { getCustomerAccounts, demoCustomer, getTransactionsFromAccount } from './options';
 
 
-const fetchAccounts = async (options) => {
+const fetch = async (options) => {
   return new Promise((resolve, reject) => {
     rp(options)
       .then((data) => {
@@ -27,10 +27,26 @@ const current = (accounts) => {
 
 const balance = async (ctx) => {
   console.log('asdz');
-  const customer = await fetchAccounts(getCustomerAccounts(demoCustomer));
+  const customer = await fetch(getCustomerAccounts(demoCustomer));
 
   ctx.body = current(customer.accounts).availableBalance;
 };
 
+const accounts = async (ctx) => {
+  ctx.body = await fetch(getCustomerAccounts(demoCustomer));
+};
 
-export { balance, fetchAccounts };
+const transactions = async (ctx) => {
+  const customer = await fetch(getCustomerAccounts(demoCustomer));
+  const account = current(customer.accounts);
+  const query = {
+    customerId: customer.customerId,
+    accountNumber: account.accountNumber,
+    dateFrom: ctx.query.dateFrom,
+    dateTo: ctx.query.dateTo,
+  };
+  const transactionsInInterval = await fetch(getTransactionsFromAccount(query));
+  ctx.body = transactionsInInterval;
+};
+
+export { balance, fetch, accounts, transactions };

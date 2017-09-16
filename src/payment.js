@@ -1,6 +1,6 @@
 import request from 'request';
 import rp from 'request-promise';
-import { fetchBalance, current } from './accounts';
+import { fetch, current } from './accounts';
 import { putPayment, getAccount, getCustomerAccounts, contacts, demoCustomer } from './options';
 
 const doPayment = async (info) => {
@@ -42,6 +42,8 @@ const findReceiver = async (name) => {
 };
 
 const payment = async (ctx) => {
+  console.log('asd');
+  console.log(ctx);
   const values = ctx.request.body;
   const debitAccountNumber = await getCustomerAccounts(demoCustomer);
   const creditAccountNumber = findReceiver(values.receiver);

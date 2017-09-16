@@ -10,6 +10,7 @@ const baseAccountURL = 'accounts/1.0/account/';
 // const accounts = ['12084348562', '12084059280', '12084941549', '12084749713', '12084191063'];
 const getAccountsURL = 'customer/';
 
+const baseTransactionURL = 'accounts/1.0/account?';
 
 //Payments
 const basePaymentURL = 'http://dnbapistore.com/hackathon/payments/1.0/';
@@ -59,8 +60,35 @@ const getAccount = (account) => {
   };
 };
 
+
+/* eslint-disable prefer-template */
+const getTransactionsFromAccount = (data) => {
+  return {
+    uri: (baseURL +
+      baseTransactionURL +
+      'accountNumber=' +
+      data.accountNumber +
+      '&' +
+      'customerID=' +
+      data.customerId +
+      '&' +
+      'fromDate=' +
+      data.fromDate +
+      '&' +
+      'toDate=' +
+      data.toDate
+    ),
+    method: 'GET',
+    headers: {
+      'Authorization': authorizationToken,
+      'Accept': 'application/json',
+    },
+    json: true,
+  };
+};
+
 const putPayment = {
-  uri: baseURL + basePaymentURL,
+  uri: baseURL + basePaymentURL + putPaymentURL,
   method: 'PUT',
   headers: {
     'Authorization': authorizationToken,
@@ -70,4 +98,4 @@ const putPayment = {
 };
 
 
-export { getCustomer, getAccount, getCustomerAccounts, putPayment, contacts, demoCustomer };
+export { getTransactionsFromAccount, getCustomer, getAccount, getCustomerAccounts, putPayment, contacts, demoCustomer };

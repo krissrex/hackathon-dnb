@@ -4,10 +4,10 @@ import Cors from 'kcors';
 import Logger from 'koa-logger';
 import request from 'request';
 import rp from 'request-promise';
-import {getFAQ} from './faqScraper';
-import {askFAQ} from './faq';
+import { getFAQ } from './faqScraper';
+import { askFAQ } from './faq';
 import Globals from './globals';
-import { balance } from './accounts';
+import { balance, transactions } from './accounts';
 import { payment } from './payment';
 import { nearestATM } from './atm';
 
@@ -18,11 +18,13 @@ app.use(Logger());
 
 app.use(Cors());
 
-router.put('/payment', payment);
+router.post('/payment', payment);
 
 router.get('/balance', balance);
 
 router.get('/atm', nearestATM);
+
+router.get('/transactions', transactions);
 
 app.use(router.routes());
 app.use(router.allowedMethods());
@@ -70,6 +72,7 @@ setTimeout(() => {
   console.log(askFAQ('\n What shall I do if I have forgotten my password?'));
 }, 5000);
 */
+
 /*const Koa = require('koa');
 const app = new Koa();
 >>>>>>> 70b6eb2ad072b287f03bdc729b2519a8d7356de9
