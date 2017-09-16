@@ -5,7 +5,6 @@ import Logger from 'koa-logger';
 import koaBody from 'koa-body';
 import request from 'request';
 import rp from 'request-promise';
-import koaBody from 'koa-body';
 import { getFAQ } from './faqScraper';
 import { askFAQ } from './faq';
 import Globals from './globals';
@@ -20,8 +19,6 @@ app.use(Logger());
 app.use(Cors());
 app.use(koaBody());
 
-app.use(koaBody());
-
 router.post('/payment', payment);
 router.get('/balance', balance);
 router.get('/accounts', accounts);
@@ -29,7 +26,6 @@ router.get('/atm', nearestATM);
 router.get('/transactions', transactions);
 
 app.use(router.routes());
-app.use(router.allowedMethods());
 
 
 app.listen(3000);
