@@ -1,11 +1,11 @@
 {
-  "name": "hackathon back-end",
+  "name": "hackathon",
   "version": "1.0.0",
   "description": "hackathon enviroment",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js --exec babel-node --presets es2015,stage-2",
-    "build": "babel index.js dist --presets es2015,stage-2",
+    "dev": "nodemon src/index.js --exec babel-node --presets es2015,stage-2",
+    "build": "babel src -d dist --presets es2015,stage-2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
