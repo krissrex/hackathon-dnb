@@ -3,7 +3,7 @@ import Router from 'koa-router';
 import Cors from 'kcors';
 import Logger from 'koa-logger';
 import { askFAQ } from './faq';
-import { balance } from './balance';
+import { balance } from './accounts';
 import { payment } from './payment';
 
 const app = new Koa();
@@ -12,9 +12,9 @@ app.use(Logger());
 
 app.use(Cors());
 
-router.get('/balance', balance);
-
 router.put('/payment', payment);
+
+router.get('/balance', balance);
 
 app.use(router.routes());
 app.use(router.allowedMethods());

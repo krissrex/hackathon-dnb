@@ -16,10 +16,20 @@ const fetchAccounts = async (options) => {
   });
 };
 
+const current = (accounts) => {
+  for (let i = 0; i < accounts.length; i += 1) {
+    if (accounts[i].accountType === 'Current') {
+      return accounts[i];
+    }
+  }
+  return accounts[0];
+};
+
 const balance = async (ctx) => {
   console.log('asdz');
   const customer = await fetchAccounts(getCustomerAccounts(demoCustomer));
-  ctx.body = customer.accounts[0].availableBalance;
+
+  ctx.body = current(customer.accounts).availableBalance;
 };
 
 
