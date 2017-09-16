@@ -1,0 +1,32 @@
+{
+  "name": "hackathon back-end",
+  "version": "1.0.0",
+  "description": "hackathon enviroment",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js --exec babel-node --presets es2015,stage-2",
+    "build": "babel index.js dist --presets es2015,stage-2",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "kcors": "^2.2.1",
+    "koa": "^2.3.0",
+    "koa-logger": "^3.0.1",
+    "koa-router": "^7.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "nodemon": "^1.11.0"
+  }
+}
