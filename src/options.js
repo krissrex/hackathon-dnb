@@ -64,20 +64,7 @@ const getAccount = (account) => {
 /* eslint-disable prefer-template */
 const getTransactionsFromAccount = (data) => {
   return {
-    uri: (baseURL +
-      baseTransactionURL +
-      'accountNumber=' +
-      data.accountNumber +
-      '&' +
-      'customerID=' +
-      data.customerId +
-      '&' +
-      'fromDate=' +
-      data.fromDate +
-      '&' +
-      'toDate=' +
-      data.toDate
-    ),
+    uri: baseURL + baseTransactionURL + 'accountNumber=' + data.accountNumber + '&customerID=' + data.customerID + '&dateFrom=' + data.dateFrom + '&dateTo=' + data.dateTo,
     method: 'GET',
     headers: {
       'Authorization': authorizationToken,
