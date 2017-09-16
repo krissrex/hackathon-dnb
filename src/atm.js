@@ -48,4 +48,4 @@ const nearestATM = (ctx) => {
     });
 };
 
-export default { nearestATM };
+export { nearestATM };
