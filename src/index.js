@@ -2,10 +2,12 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import Cors from 'kcors';
 import Logger from 'koa-logger';
+import {getFAQ} from './faqScraper';
 import {askFAQ} from './faq';
 import request from 'request';
 import rp from 'request-promise';
 import Transfer from './transfer';
+import Globals from './globals';
 
 
 const app = new Koa();
@@ -28,6 +30,14 @@ console.log('\n\n QUESTION: internet bank');
 
 console.log(askFAQ('\n internet bank'));
 */
+
+
+getFAQ();
+
+setTimeout(() => {
+  console.log(' \n QUESTION: What shall I do if I have forgotten my password?');
+  console.log(askFAQ('\n What shall I do if I have forgotten my password?'));
+}, 5000);
 
 const options = {
   uri: 'https://dnbapistore.com/hackathon/customers/1.0/customer/12039296822',
