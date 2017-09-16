@@ -10,7 +10,7 @@ import Transfer from './transfer';
 const app = new Koa();
 app.use(Logger());
 
-const options = {
+const getCustomerOptions = {
   uri: 'https://dnbapistore.com/hackathon/customers/1.0/customer/12039296822',
   headers: {
     'Authorization': 'Bearer 5cdc9b46-b248-3cf3-ba15-aba91ce75f46',
@@ -19,6 +19,14 @@ const options = {
   json: true, // Automatically parses the JSON string in the response
 };
 
+app.listen(3000);
+
+
+
+
+/* examples
+
+promise-based fetch
 const yo = rp(options)
   .then(function (data) {
       console.log(data);
@@ -27,4 +35,4 @@ const yo = rp(options)
       console.log(err);
   });
 
-app.listen(3000);
+*/
