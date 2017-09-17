@@ -2,7 +2,7 @@ import Globals from './globals';
 import { fetch } from './accounts';
 import { getTransactionsFromAccount, demoCustomer, getCustomerAccounts } from './options';
 
-const ids = [21116732036, 17105256195, 23065926630, 21039468729, 18088346385, 24108295788];
+const ids = [parseInt(demoCustomer, 10)];
 
 
 const getPeople = async () => {
@@ -47,11 +47,11 @@ const mergeTransactions = async () => {
   return transactions;
 };
 
-const getData = async () => {
+const getPersonalData = async () => {
   const data = await mergeTransactions();
-  Globals.transactions = data;
+  Globals.personalTransactions = data;
   console.log(data);
-  Globals.transactionsDone = true;
+  Globals.personalDone = true;
 };
 
-export default getData;
+export default getPersonalData;

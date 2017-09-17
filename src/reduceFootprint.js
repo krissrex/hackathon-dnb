@@ -89,8 +89,14 @@ const getSugestionForGreenFootprint = () => {
   );
 };
 
+const getSuggestion = async (ctx) => {
+  ctx.body = getSugestionForGreenFootprint();
+};
+
+
 export {
   mapPersonalTransactionToBranch,
   mapOthersTransactionToBranch,
   getSugestionForGreenFootprint,
+  getSuggestion
 };

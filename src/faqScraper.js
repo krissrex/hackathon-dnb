@@ -2,14 +2,12 @@ import cheerio from 'cheerio';
 import request from 'request';
 import Globals from './globals';
 
-/*
-'https://www.dnb.lt/en/private/frequently-asked-questions-2#which-dnb-services-can-i-use-at-the-internet-bank',
+const faqURLS = [
+  'https://www.dnb.lt/en/top-frequently-asked-questions',
+  'https://www.dnb.lt/en/private/frequently-asked-questions-2#which-dnb-services-can-i-use-at-the-internet-bank',
   'https://www.dnb.lt/en/business/frequently-asked-questions-faq-1',
   'https://www.dnb.lt/en/business/frequently-asked-questions',
   'https://www.dnb.lt/en/private/frequently-asked-questions-4',
-  */
-const faqURLS = [
-  'https://www.dnb.lt/en/top-frequently-asked-questions',
 ];
 const separators = [' ', '\n', '\t'];
 let counter = 0;

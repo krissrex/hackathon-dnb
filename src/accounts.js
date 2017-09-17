@@ -130,7 +130,10 @@ const transactions = async (ctx) => {
   ctx.body = transactionsInInterval;
 };
 
+
+
 const total = async (ctx) => {
+  
   ctx.body = {
     total: [10000, 12000, 15000, 60000, 13000].slice(0, 5),
   };
