@@ -58,8 +58,38 @@ class Globals {
       div: ['Kicks', 'Ikea', 'Vipps'],
     };
     this.branchEmissions = {
-      
-    }
+      foodStore: {
+        Rema1000: 100,
+        Coop: 200,
+        Kiwi: 50,
+        Joker: 80,
+      },
+      fastFood: {
+        McDonalds: 800,
+        BurgerKing: 600,
+      },
+      transportation: {
+        Ruter: 1200,
+        NSB: 1500,
+      },
+      electronics: {
+        Elkjøp: 750,
+        Lefdal: 600,
+        Power: 900,
+      },
+      restaurants: {
+        TGIFriday: 500,
+        BambusSushi: 600,
+        KulturHuset: 350,
+        EspressoHouse: 200,
+        joeandthejuice: 150,
+      },
+      div: {
+        Kicks: 400,
+        Ikea: 1000,
+        Vipps: 30,
+      },
+    };
   }
 }
 
