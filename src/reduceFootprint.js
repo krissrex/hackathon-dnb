@@ -12,9 +12,9 @@ const mapPersonalTransactionToBranch = () => {
     const descripton = persTrans[i].descripton;
     Object.keys(branches).forEach((branch) => {
       for (let j = 0; j < branch.length; j += 1) {
-        if (descripton.includes(branch[i])) {
+        if (descripton.includes(branches[branch][j])) {
           persTrans[i].branch = branch;
-          persTrans[i].firm = branch[i];
+          persTrans[i].firm = branches[branch][j];
           break;
         }
       }
@@ -27,9 +27,9 @@ const mapOthersTransactionToBranch = () => {
     const descripton = othersTrans[i].descripton;
     Object.keys(branches).forEach((branch) => {
       for (let j = 0; j < branch.length; j += 1) {
-        if (descripton.includes(branch[i])) {
+        if (descripton.includes(branches[branch][j])) {
           othersTrans[i].branch = branch;
-          othersTrans[i].firm = branch[i];
+          othersTrans[i].firm = branches[branch][j];
           break;
         }
       }
@@ -39,84 +39,49 @@ const mapOthersTransactionToBranch = () => {
 
 const getSugestionForGreenFootprint = () => {
   for (let i = 0; i < persTrans.length; i += 1) {
-    const trans = persTrans[i].descripton;
+    const trans = persTrans[i];
     try {
-      //personalEmissions.$(trans.branch).$(trans.branch) = branchEmissions.$(trans.branch).$(trans.branch);
-    }
-    catch (error) {
-      console.log("error in emission retriving");
+      personalEmissions[trans.branch][trans.firm] += 1;
+    } catch (error) {
+      console.log('error in emission retriving');
     }
   }
+
+  let tempDiff = 0;
+  let tempBranch = '';
+  let toFirm = '';
+  let fromFirm = '';
+  let totalUse = 0;
+  Object.keys(personalEmissions).forEach((branch) => {
+    Object.keys(personalEmissions[branch]).forEach((firm) => {
+      if (personalEmissions[branch][firm] > 0) {
+        totalUse += branchEmissions[branch][firm];
+        Object.keys(branchEmissions[branch]).forEach((compareFirm) => {
+          if (branchEmissions[branch][firm] - branchEmissions[branch][compareFirm]
+             > tempDiff) {
+            tempDiff = branchEmissions[branch][firm] -
+              branchEmissions[branch][compareFirm];
+            tempBranch = branch;
+            toFirm = compareFirm;
+            fromFirm = firm;
+          }
+        });
+      }
+    });
+  });
   return (
     {
-      totaltForbruk: 800000,
-      totaltSpart: 200000,
-      savings: [
-        {
-          from: 'coop',
-          to: 'rema1000',
-          totalSaved: 100000,
-        },
-        {
-          from: 'Lefdal',
-          to: 'Power',
-          totalSaved: 60000,
-        },
-        {
-          from: 'BurgerKing',
-          to: 'McDonalds',
-          totalSaved: 40000,
-        },
-      ],
-      data: [
-        {
-          companyFrom: {
-            name: 'coop',
-            amount: 700000,
-            users: 500,
-            frequency: 0.7,
-          },
-          companyTo: {
-            name: 'rema1000',
-            amount: 100000,
-            users: 500,
-            frequency: 0.7,
-          },
-          diff: 1000,
-        },
-        {
-          companyFrom: {
-            name: 'coop',
-            amount: 700000,
-            users: 500,
-            frequency: 0.7,
-          },
-          companyTo: {
-            name: 'rema1000',
-            amount: 100000,
-            users: 500,
-            frequency: 0.7,
-          },
-          diff: 1000,
-        },
-        {
-          companyFrom: {
-            name: 'coop',
-            amount: 700000,
-            users: 500,
-            frequency: 0.7,
-          },
-          companyTo: {
-            name: 'rema1000',
-            amount: 100000,
-            users: 500,
-            frequency: 0.7,
-          },
-          diff: 1000,
-        },
-      ],
+      totalUse,
+      savings: tempDiff,
+      branch: tempBranch,
+      from: fromFirm,
+      to: toFirm,
     }
   );
 };
 
-export { mapPersonalTransactionToBranch, mapOthersTransactionToBranch, getSugestionForGreenFootprint };
+export {
+  mapPersonalTransactionToBranch,
+  mapOthersTransactionToBranch,
+  getSugestionForGreenFootprint,
+};

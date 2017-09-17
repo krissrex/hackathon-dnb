@@ -11,7 +11,11 @@ import Globals from './globals';
 import { balance, transactions, accounts, total } from './accounts';
 import { payment } from './payment';
 import { nearestATM } from './atm';
-
+import {
+  mapPersonalTransactionToBranch,
+  mapOthersTransactionToBranch,
+  getSugestionForGreenFootprint
+} from './reduceFootprint.js';
 
 const app = new Koa();
 const router = new Router();
@@ -31,7 +35,21 @@ app.use(router.routes());
 
 app.listen(3000);
 
+const persTrans = Globals.personalTransactions;
+const othersTrans = Globals.othersTransactions;
+const branches = Globals.branchMaps;
+const branchEmissions = Globals.branchEmissions;
+const personalEmissions = Globals.personalEmissions;
+
+console.log('\n\n\n mapping starting');
+mapPersonalTransactionToBranch();
+mapOthersTransactionToBranch();
+
+console.log('\n\n\n search starting');
+console.log(getSugestionForGreenFootprint());
+console.log('\n\n\n');
 /* examples
+
 
 promise-based fetch
 const yo = rp(options)
