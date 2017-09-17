@@ -6,7 +6,7 @@ import koaBody from 'koa-body';
 import request from 'request';
 import rp from 'request-promise';
 import { getFAQ } from './faqScraper';
-import { askFAQ } from './faq';
+import { askFAQ, faq } from './faq';
 import Globals from './globals';
 import { balance, transactions, accounts, total } from './accounts';
 import { payment } from './payment';
@@ -26,6 +26,7 @@ router.get('/accounts', accounts);
 router.get('/atm', nearestATM);
 router.get('/transactions', transactions);
 router.get('/total/:months', total);
+router.get('/faq', faq);
 
 app.use(router.routes());
 

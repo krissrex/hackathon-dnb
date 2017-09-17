@@ -34,7 +34,6 @@ const getTransactions = async () => {
 const mergeTransactions = async () => {
   const transactions = [];
   const transactionsSplitted = await getTransactions();
-  console.log(transactionsSplitted);
   for (let i = 0; i < transactionsSplitted.length; i += 1) {
     for (let j = 0; j < transactionsSplitted[i].transactions.length; j += 1) {
       const transaction = transactionsSplitted[i].transactions[j];
@@ -50,7 +49,6 @@ const mergeTransactions = async () => {
 
 const getData = async () => {
   const data = await mergeTransactions();
-  console.log(data);
   Globals.transactions = data;
 };
 
