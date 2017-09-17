@@ -20,7 +20,7 @@ const authorizationToken = 'Bearer 5cdc9b46-b248-3cf3-ba15-aba91ce75f46';
 
 const dass = 'https://dnbapistore.com/hackathon/payments/1.0/payment';
 const contacts = {
-  lars: 12084941549,
+  kevin: 12084941549,
   morten: 321123,
 };
 
