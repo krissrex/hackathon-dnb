@@ -11,6 +11,7 @@ import Globals from './globals';
 import { balance, transactions, accounts, total } from './accounts';
 import { payment } from './payment';
 import { nearestATM } from './atm';
+import getData from './transactions';
 
 
 const app = new Koa();
@@ -64,7 +65,7 @@ console.log(askFAQ('\n internet bank'));
 */
 
 getFAQ();
-
+getData();
 /*
 setTimeout(() => {
   console.log(' \n QUESTION: What shall I do if I have forgotten my password?');
