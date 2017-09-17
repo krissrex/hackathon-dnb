@@ -1,5 +1,7 @@
 class Globals {
   constructor() {
+    this.personalDone = false;
+    this.transactionsDone = false;
     this.faqList = [];
     this.transactions = [];
     this.personalTransactions = [

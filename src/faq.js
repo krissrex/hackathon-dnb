@@ -57,7 +57,8 @@ const askFAQ = (inputString) => {
 
 
 const faq = (ctx) => {
-  ctx.body = askFAQ(ctx.query.string);
+  const query = ('undefined' === typeof ctx.query.string) ? '' : ctx.query.string;
+  ctx.body = askFAQ(query);
 };
 
 

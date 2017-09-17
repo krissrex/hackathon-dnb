@@ -76,7 +76,9 @@ const accounts = async (ctx) => {
  * Sample data:
  * 
  * ```
-
+{
+  "accountNumber": 12084059280,
+  "transactions": [
     {
       "transactionID": 7188093189,
       "transactionType": 2,
@@ -110,7 +112,7 @@ const accounts = async (ctx) => {
       "timeStamp": "2017-02-07, 21:49",
       "amount": "-604.46",
       "message/KID": "Varekjøp Joeandthejuice Nedre Slottsgate Oslo Dato 07.02 kl. 21.49"
-    },
+    }]
 ```
  *  
  */
@@ -128,7 +130,10 @@ const transactions = async (ctx) => {
   ctx.body = transactionsInInterval;
 };
 
+
+
 const total = async (ctx) => {
+  
   ctx.body = {
     total: [10000, 12000, 15000, 60000, 13000].slice(0, 5),
   };
