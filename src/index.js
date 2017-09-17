@@ -8,7 +8,7 @@ import rp from 'request-promise';
 import { getFAQ } from './faqScraper';
 import { askFAQ } from './faq';
 import Globals from './globals';
-import { balance, transactions, accounts } from './accounts';
+import { balance, transactions, accounts, total } from './accounts';
 import { payment } from './payment';
 import { nearestATM } from './atm';
 
@@ -24,6 +24,7 @@ router.get('/balance', balance);
 router.get('/accounts', accounts);
 router.get('/atm', nearestATM);
 router.get('/transactions', transactions);
+router.get('/total/:months', total);
 
 app.use(router.routes());
 

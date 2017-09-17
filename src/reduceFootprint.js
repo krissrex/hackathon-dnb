@@ -15,7 +15,6 @@ const createMapping = () => {
           break;
         }
       }
-
 };
 
 const getSugestionForGreenFootprint = () => {
