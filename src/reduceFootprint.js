@@ -2,26 +2,50 @@ import Globals from './globals';
 
 const persTrans = Globals.personalTransactions;
 const othersTrans = Globals.othersTransactions;
-const brances = Globals.branchMaps;
+const branches = Globals.branchMaps;
+const branchEmissions = Globals.branchEmissions;
+const personalEmissions = Globals.personalEmissions;
 
 
-const createMapping = () => {
+const mapPersonalTransactionToBranch = () => {
   for (let i = 0; i < persTrans.length; i += 1) {
     const descripton = persTrans[i].descripton;
-    Object.keys(branches).forEach(function(branch) {
+    Object.keys(branches).forEach((branch) => {
       for (let j = 0; j < branch.length; j += 1) {
-        if (descripton.includes(branch[i])){
+        if (descripton.includes(branch[i])) {
           persTrans[i].branch = branch;
+          persTrans[i].firm = branch[i];
           break;
         }
       }
+    });
+  }
+};
 
+const mapOthersTransactionToBranch = () => {
+  for (let i = 0; i < othersTrans.length; i += 1) {
+    const descripton = othersTrans[i].descripton;
+    Object.keys(branches).forEach((branch) => {
+      for (let j = 0; j < branch.length; j += 1) {
+        if (descripton.includes(branch[i])) {
+          othersTrans[i].branch = branch;
+          othersTrans[i].firm = branch[i];
+          break;
+        }
+      }
+    });
+  }
 };
 
 const getSugestionForGreenFootprint = () => {
   for (let i = 0; i < persTrans.length; i += 1) {
-    const a = persTrans[i].descripton;
-
+    const trans = persTrans[i].descripton;
+    try {
+      //personalEmissions.$(trans.branch).$(trans.branch) = branchEmissions.$(trans.branch).$(trans.branch);
+    }
+    catch (error) {
+      console.log("error in emission retriving");
+    }
   }
   return (
     {
@@ -95,4 +119,4 @@ const getSugestionForGreenFootprint = () => {
   );
 };
 
-export { getSugestionForGreenFootprint };
+export { mapPersonalTransactionToBranch, mapOthersTransactionToBranch, getSugestionForGreenFootprint };
