@@ -128,6 +128,10 @@ const transactions = async (ctx) => {
   ctx.body = transactionsInInterval;
 };
 
+const total = async (ctx) => {
+  ctx.body = [10000, 12000, 15000, 60000, 13000].slice(0, 5);
+};
+
 /*const lastWeek = async (ctx) => {
   const customer = await fetch(getCustomerAccounts(demoCustomer));
   const account = current(customer.accounts);
@@ -142,4 +146,4 @@ const transactions = async (ctx) => {
   ctx.body = transactionsInInterval;
 };*/
 
-export { balance, fetch, accounts, transactions, current };
+export { balance, fetch, accounts, transactions, current, total };
