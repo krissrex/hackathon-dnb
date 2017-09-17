@@ -76,7 +76,7 @@ console.log(askFAQ('\n internet bank'));
 
 getFAQ();
 getData();
-getPersonalData();
+getPersonalData('01012017', '17092017');
 
 //setTimeout(() => {
   console.log(' \n QUESTION: What shall I do if I have forgotten my password?');

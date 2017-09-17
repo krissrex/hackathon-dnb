@@ -50,7 +50,6 @@ const mergeTransactions = async () => {
 const getData = async () => {
   const data = await mergeTransactions();
   Globals.transactions = data;
-  console.log(data);
   Globals.transactionsDone = true;
 };
 

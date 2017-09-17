@@ -13,27 +13,33 @@ const getPeople = async () => {
   return results;
 };
 
-const getTransactions = async () => {
+const getTransactions = async (fromDate, toDate) => {
   const transactions = [];
   const people = await getPeople();
   for (let i = 0; i < people.length; i += 1) {
     for (let j = 0; j < people[i].accounts.length; j += 1) {
       const data = {
         accountNumber: people[i].accounts[j].accountNumber,
-        dateFrom: '01012017',
-        dateTo: '17092017',
+        dateFrom: fromDate,
+        dateTo: toDate,
         customerID: parseInt(people[i].customerID, 10),
       };
-      transactions.push( await fetch(getTransactionsFromAccount(data)));
+      let some = { transactions: [] };
+      try {
+        some = await fetch(getTransactionsFromAccount(data));
+      } catch (e) {
+
+      }
+      transactions.push(some);
     }
   }
   return transactions;
 };
 
 
-const mergeTransactions = async () => {
+const mergeTransactions = async (fromDate, toDate) => {
   const transactions = [];
-  const transactionsSplitted = await getTransactions();
+  const transactionsSplitted = await getTransactions(fromDate, toDate);
   for (let i = 0; i < transactionsSplitted.length; i += 1) {
     for (let j = 0; j < transactionsSplitted[i].transactions.length; j += 1) {
       const transaction = transactionsSplitted[i].transactions[j];
@@ -47,11 +53,13 @@ const mergeTransactions = async () => {
   return transactions;
 };
 
-const getPersonalData = async () => {
-  const data = await mergeTransactions();
+const getPersonalData = async (fromDate, toDate) => {
+  console.log(fromDate + 'asdasd' + toDate);
+  const data = await mergeTransactions(fromDate, toDate);
   Globals.personalTransactions = data;
-  console.log(data);
   Globals.personalDone = true;
+  console.log(data.length);
+  return data;
 };
 
 export default getPersonalData;

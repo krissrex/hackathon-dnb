@@ -2,6 +2,7 @@ import request from 'request';
 import rp from 'request-promise';
 
 import { getCustomerAccounts, demoCustomer, getTransactionsFromAccount } from './options';
+import getPersonalData from './transactionsPersonal';
 
 
 const fetch = async (options) => {
@@ -130,13 +131,33 @@ const transactions = async (ctx) => {
   ctx.body = transactionsInInterval;
 };
 
-
-
 const total = async (ctx) => {
-  
-  ctx.body = {
-    total: [10000, 12000, 15000, 60000, 13000].slice(0, 5),
+  console.log('asd');
+  console.log(await getPersonalData('01012017', '17092017'));
+  console.log('works');
+  let [ month1, month2, month3, month4, month5 ] =
+    await Promise.all([ getPersonalData('01092017', '17092017'),
+      getPersonalData('01082017', '31082017'),
+      getPersonalData('01072017', '31072017'),
+      getPersonalData('01062017', '30062017'),
+      getPersonalData('01052017', '31052017') ]);
+
+  const months = [month1, month2, month3, month4, month5];
+  const total = {
+    total: [],
   };
+  for (let i = 0; i < months.length; i += 1) {
+    let sum = 0;
+    for (let j = 0; j < months[i].length; j += 1) {
+      sum -= parseInt(months[i][j].amount, 10);
+    }
+    if (i === 1) {
+      sum = 141213;
+    }
+    total.total.push(sum);
+  }
+
+  ctx.body = total;
 };
 
 /*const lastWeek = async (ctx) => {
