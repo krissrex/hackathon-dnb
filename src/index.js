@@ -14,8 +14,8 @@ import { nearestATM } from './atm';
 import {
   mapPersonalTransactionToBranch,
   mapOthersTransactionToBranch,
-  getSugestionForGreenFootprint
-} from './reduceFootprint.js';
+  getSugestionForGreenFootprint,
+} from './reduceFootprint';
 import getData from './transactions';
 
 const app = new Koa();
@@ -31,25 +31,14 @@ router.get('/atm', nearestATM);
 router.get('/transactions', transactions);
 router.get('/total/:months', total);
 router.get('/faq', faq);
+router.get('/reduceFootprint', getSugestionForGreenFootprint);
 
 app.use(router.routes());
 
 
 app.listen(3000);
 
-const persTrans = Globals.personalTransactions;
-const othersTrans = Globals.othersTransactions;
-const branches = Globals.branchMaps;
-const branchEmissions = Globals.branchEmissions;
-const personalEmissions = Globals.personalEmissions;
 
-console.log('\n\n\n mapping starting');
-mapPersonalTransactionToBranch();
-mapOthersTransactionToBranch();
-
-console.log('\n\n\n search starting');
-console.log(getSugestionForGreenFootprint());
-console.log('\n\n\n');
 /* examples
 
 
@@ -85,12 +74,27 @@ console.log(askFAQ('\n internet bank'));
 
 getFAQ();
 getData();
-/*
-setTimeout(() => {
+
+//setTimeout(() => {
   console.log(' \n QUESTION: What shall I do if I have forgotten my password?');
   console.log(askFAQ('\n What shall I do if I have forgotten my password?'));
-}, 5000);
-*/
+
+const persTrans = Globals.personalTransactions;
+const othersTrans = Globals.othersTransactions;
+const branches = Globals.branchMaps;
+const branchEmissions = Globals.branchEmissions;
+const personalEmissions = Globals.personalEmissions;
+
+//console.log(Globals.transactions);
+console.log('\n\n\n mapping starting');
+mapPersonalTransactionToBranch();
+mapOthersTransactionToBranch();
+
+console.log('\n\n\n search starting');
+console.log(getSugestionForGreenFootprint());
+console.log('\n\n\n');
+//}, 15000);
+
 
 /*const Koa = require('koa');
 const app = new Koa();

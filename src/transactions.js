@@ -41,7 +41,7 @@ const mergeTransactions = async () => {
       transaction.branch = '';
       transaction.firm = '';
       transaction.description = transaction['message/KID'];
-      transactions.push();
+      transactions.push(transaction);
     }
   }
   return transactions;
