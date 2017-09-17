@@ -20,7 +20,7 @@ const convertPositionToZip = (lat, long) => {
 const findAtmsFromZip = (zipCode) => {
   return new Promise((resolve, reject) => {
     // TODO query DNB API
-    return resolve([{ lat: 10, long: 10 }]);
+    return resolve([{ lat: 59.907578, long: 10.760129 }]);
   });
 };
 
