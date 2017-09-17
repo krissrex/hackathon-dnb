@@ -1,9 +1,10 @@
+import { findBestMatch } from 'string-similarity';
 import Globals from './globals';
-
 // Takes a string
 const faqList = Globals.faqList;
-const separators = [' ', '\\+', '-', '\\(', '\\)', '\\*', '/', ':', '\\?'];
+// const separators = [' ', '\\+', '-', '\\(', '\\)', '\\*', '/', ':', '\\?'];
 
+/*
 const getAnswer = (relations) => {
   let maxValue = -1;
   let id = -1;
@@ -21,8 +22,20 @@ const getAnswer = (relations) => {
   }
   return (answer);
 };
-
+*/
 const askFAQ = (inputString) => {
+  const matchStrings = faqList.map(a => a.question);
+  if (matchStrings.length === 0) {
+    return 'Sorry, this is to early for me to answer questions. Let me have my coffee first!';
+  }
+  const ratings = findBestMatch(inputString, matchStrings).ratings;
+  ratings.sort((a, b) =>
+    a.rating - b.rating,
+  );
+  const match = ratings[ratings.length - 1];
+  const result = faqList.find(x => x.question === match.target).answer;
+
+  /*
   const tokens = inputString.split(new RegExp(separators.join('|'), 'g'));
 
   const relations = faqList.map((object) => {
@@ -37,7 +50,9 @@ const askFAQ = (inputString) => {
     }
     return { id: object.id, corealation: counter };
   });
-  return getAnswer(relations);
+*/
+
+  return result;
 };
 
 
