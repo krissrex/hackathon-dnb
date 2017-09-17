@@ -129,7 +129,9 @@ const transactions = async (ctx) => {
 };
 
 const total = async (ctx) => {
-  ctx.body = [10000, 12000, 15000, 60000, 13000].slice(0, 5);
+  ctx.body = {
+    total: [10000, 12000, 15000, 60000, 13000].slice(0, 5),
+  };
 };
 
 /*const lastWeek = async (ctx) => {

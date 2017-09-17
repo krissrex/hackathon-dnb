@@ -1,7 +1,7 @@
 import Globals from './globals';
 
 // Takes a string
-let faq = Globals.faqList;
+const faqList = Globals.faqList;
 const separators = [' ', '\\+', '-', '\\(', '\\)', '\\*', '/', ':', '\\?'];
 
 const getAnswer = (relations) => {
@@ -14,9 +14,9 @@ const getAnswer = (relations) => {
     }
   }
   let answer = 'sorry, but i cant answer that for you';
-  for (let i = 0; i < faq.length; i += 1) {
-    if (id === faq[i].id) {
-      answer = faq[i].answer;
+  for (let i = 0; i < faqList.length; i += 1) {
+    if (id === faqList[i].id) {
+      answer = faqList[i].answer;
     }
   }
   return (answer);
@@ -25,7 +25,7 @@ const getAnswer = (relations) => {
 const askFAQ = (inputString) => {
   const tokens = inputString.split(new RegExp(separators.join('|'), 'g'));
 
-  const relations = faq.map((object) => {
+  const relations = faqList.map((object) => {
     let counter = 0;
     for (let i = 0; i < tokens.length; i += 1) {
       const questionWords = object.question.split(new RegExp(separators.join('|'), 'g'));
@@ -40,5 +40,11 @@ const askFAQ = (inputString) => {
   return getAnswer(relations);
 };
 
-export { askFAQ };
+
+const faq = (ctx) => {
+  ctx.body = askFAQ(ctx.query.string);
+};
+
+
+export { askFAQ, faq };
 
