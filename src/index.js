@@ -78,21 +78,16 @@ getFAQ();
 getData();
 getPersonalData('01012017', '17092017');
 
-//setTimeout(() => {
-  console.log(' \n QUESTION: What shall I do if I have forgotten my password?');
-  console.log(askFAQ('\n What shall I do if I have forgotten my password?'));
+//setTimeout(() => {);
 
 const doDammen = () => {
-  console.log(Globals.personalDone);
-  console.log(Globals.transactionsDone);
   if (Globals.personalDone && Globals.transactionsDone) {
     mapPersonalTransactionToBranch();
     mapOthersTransactionToBranch();
-    console.log(getSugestionForGreenFootprint());
+    console.log('Done loading data')
   }
 };
 //console.log(Globals.transactions);
-console.log('\n\n\n mapping starting');
 setInterval(doDammen, 5000);
 
 //}, 15000);
