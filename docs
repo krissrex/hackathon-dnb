@@ -1,0 +1,10 @@
+/payment
+    receiver: (String)
+    amount: (Int)
+
+#POST receiver og amount i et JSON object, bruk 'Lars' som string i receiver;)
+
+
+
+
+

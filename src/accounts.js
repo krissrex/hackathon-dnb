@@ -67,7 +67,9 @@ const balance = async (ctx) => {
 }```
  */
 const accounts = async (ctx) => {
-  ctx.body = await fetch(getCustomerAccounts(demoCustomer));
+  const place = await fetch(getCustomerAccounts(demoCustomer));
+  console.log(place);
+  ctx.body = place;
 };
 
 /**
@@ -128,7 +130,13 @@ const transactions = async (ctx) => {
   ctx.body = transactionsInInterval;
 };
 
-const lastWeek = async (ctx) => {
+const total = async (ctx) => {
+  ctx.body = {
+    total: [10000, 12000, 15000, 60000, 13000].slice(0, 5),
+  };
+};
+
+/*const lastWeek = async (ctx) => {
   const customer = await fetch(getCustomerAccounts(demoCustomer));
   const account = current(customer.accounts);
   console.log(customer);
@@ -140,6 +148,6 @@ const lastWeek = async (ctx) => {
   };
   const transactionsInInterval = await fetch(getTransactionsFromAccount(query));
   ctx.body = transactionsInInterval;
-};
+};*/
 
-export { balance, fetch, accounts, transactions };
+export { balance, fetch, accounts, transactions, current, total };

@@ -3,23 +3,15 @@ import rp from 'request-promise';
 import { fetch, current } from './accounts';
 import { putPayment, getAccount, getCustomerAccounts, contacts, demoCustomer } from './options';
 
-const doPayment = async (info) => {
-  const options = putPayment;
-  options.body = info;
-  return new Promise((resolve, reject) => {
-    rp(options)
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  });
-};
-
 const dateString = (date) => {
-  const dd = date.getDate();
-  const mm = date.getMonth() + 1;
+  let dd = date.getDate();
+  if (dd.toString().length < 2) {
+    dd = '0' + dd.toString();
+  }
+  let mm = date.getMonth() + 1;
+  if (dd.toString().length < 2) {
+    mm = '0' + mm.toString();
+  }
   const xxxx = date.getFullYear();
   const space = '-';
   return xxxx + space + mm + space + dd;
@@ -33,7 +25,7 @@ const message = (data) => {
 };
 /* eslint-enable prefer-template */
 
-const findReceiver = async (name) => {
+const findReceiver = (name) => {
   const lowercase = name.toLowerCase();
   if (Object.keys(contacts).indexOf(lowercase) > -1) {
     return contacts[lowercase];
@@ -42,21 +34,24 @@ const findReceiver = async (name) => {
 };
 
 const payment = async (ctx) => {
-  console.log('asd');
-  console.log(ctx);
   const values = ctx.request.body;
-  const debitAccountNumber = await getCustomerAccounts(demoCustomer);
+  const customerOptions = getCustomerAccounts(demoCustomer);
+  console.log(customerOptions);
+  const debitAccountNumber = await fetch(customerOptions);
   const creditAccountNumber = findReceiver(values.receiver);
-
+  console.log(debitAccountNumber);
   const data = {
-    debitAccountNumber,
+    debitAccountNumber: current(debitAccountNumber.accounts).accountNumber,
     creditAccountNumber,
     paymentDate: dateString(new Date()),
-    amount: values.amount,
+    amount: parseInt(values.amount, 10),
   };
 
+  console.log(typeof data.paymentDate);
+
   data.message = message(data);
-  const done = await doPayment(data);
+  console.log(data);
+  const done = await fetch(putPayment(data));
   ctx.response.body = done;
 };
 

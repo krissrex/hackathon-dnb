@@ -6,12 +6,17 @@ import koaBody from 'koa-body';
 import request from 'request';
 import rp from 'request-promise';
 import { getFAQ } from './faqScraper';
-import { askFAQ } from './faq';
+import { askFAQ, faq } from './faq';
 import Globals from './globals';
-import { balance, transactions } from './accounts';
+import { balance, transactions, accounts, total } from './accounts';
 import { payment } from './payment';
 import { nearestATM } from './atm';
-
+import {
+  mapPersonalTransactionToBranch,
+  mapOthersTransactionToBranch,
+  getSugestionForGreenFootprint,
+} from './reduceFootprint';
+import getData from './transactions';
 
 const app = new Koa();
 const router = new Router();
@@ -21,16 +26,21 @@ app.use(koaBody());
 
 router.post('/payment', payment);
 router.get('/balance', balance);
+router.get('/accounts', accounts);
 router.get('/atm', nearestATM);
 router.get('/transactions', transactions);
+router.get('/total/:months', total);
+router.get('/faq', faq);
+router.get('/reduceFootprint', getSugestionForGreenFootprint);
 
 app.use(router.routes());
-app.use(router.allowedMethods());
 
 
 app.listen(3000);
 
+
 /* examples
+
 
 promise-based fetch
 const yo = rp(options)
@@ -63,13 +73,28 @@ console.log(askFAQ('\n internet bank'));
 */
 
 getFAQ();
+getData();
 
-/*
-setTimeout(() => {
+//setTimeout(() => {
   console.log(' \n QUESTION: What shall I do if I have forgotten my password?');
   console.log(askFAQ('\n What shall I do if I have forgotten my password?'));
-}, 5000);
-*/
+
+const persTrans = Globals.personalTransactions;
+const othersTrans = Globals.othersTransactions;
+const branches = Globals.branchMaps;
+const branchEmissions = Globals.branchEmissions;
+const personalEmissions = Globals.personalEmissions;
+
+//console.log(Globals.transactions);
+console.log('\n\n\n mapping starting');
+mapPersonalTransactionToBranch();
+mapOthersTransactionToBranch();
+
+console.log('\n\n\n search starting');
+console.log(getSugestionForGreenFootprint());
+console.log('\n\n\n');
+//}, 15000);
+
 
 /*const Koa = require('koa');
 const app = new Koa();
